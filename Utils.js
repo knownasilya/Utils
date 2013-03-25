@@ -15,6 +15,13 @@ var Utils = {};
 Utils.General = {};
 
 /**
+  Utilities ment to deal with arrays.
+
+  @namespace Utils.Array
+*/
+Utils.Array = {};
+
+/**
   Web utilities.
 
   @namespace Utils.Web
@@ -25,7 +32,7 @@ Utils.Web = {};
 
 
 
-Utils = (function(utils) {
+Utils = (function (utils) {
 
   /**
     To get the browser's search input use window.location.search for the url
@@ -43,13 +50,16 @@ Utils = (function(utils) {
     var regexS = "[\\?&]" + name + "=([^&#]*)";
     var regex = new RegExp(regexS);
     var results = regex.exec(url);
+    var output;
 
-    if (results == null) {
-      return "";
+    if (results === null) {
+      output = "";
     }
     else {
-      return decodeURIComponent(results[1].replace(/\+/g, " "));
+      output = decodeURIComponent(results[1].replace(/\+/g, " "));
     }
+
+    return output;
   }
 
   /**
@@ -67,5 +77,21 @@ Utils = (function(utils) {
     }
     return false;
   }
+
+  /**
+    Removes the given item from the specified array.
+
+    @param {Array} array - The array from which to remove the item.
+    @param {object} item - The item to remove.
+    @memberOf Utils.Array
+  */
+  utils.Array.removeItem = function (array, item) {
+    for (var i = array.length - 1; i >= 0; i--) {
+      if (array[i] == item) {
+        array.splice(i, 1);
+      }
+    }
+  }
+
   return utils;
 })(Utils || {});
